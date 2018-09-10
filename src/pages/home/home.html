@@ -1,17 +1,51 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>
+      Home
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <h1>Avaliação de Desempenho</h1><br/>
+  <button ion-button full round color="bgorange" (click)="chamarCusto()">Custo</button><br/>
+  <button ion-button full round color="bgblue" (click)="chamarProdutividade()">Produtividade</button><br/>
+  <button ion-button full round color="bggreen" (click)="chamarQualidade()">Qualidade</button> <br/>
+  <button ion-button full round color="bgred" (click)="chamarTempo()">Tempo</button> <br/>
+  <button ion-button full round color="bgyellow" (click)="chamarOutros()">Outros</button> <br/>
+  <!-- <div style="width: 100%;">
+    <canvas baseChart width="100%" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [colors]="barChartColors" [chartType]="barChartType"></canvas>
+  </div>
+
+  <div style="width: 100%;">
+    <canvas baseChart width="100%" height="100%" [chartType]=" 'bar' " [datasets]="chartData " [labels]="chartLabels " [options]="chartOptions " [legend]="true ">
+    </canvas>
+  </div>
+
+  <div padding>
+    <ion-segment [(ngModel)]="segment " (ionChange)="calc(segment) ">
+      <ion-segment-button value="bar ">
+        Bar
+      </ion-segment-button>
+      <ion-segment-button value="doughnut ">
+        Doughnut
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="segment " style="segment ">
+    <ion-list *ngSwitchCase=" 'bar' ">
+      <div style="display: block ">
+        <canvas baseChart [datasets]="barChartData " [labels]="barChartLabels " [options]="barChartOptions " [legend]="barChartLegend " [colors]="barChartColors " [chartType]="barChartType "></canvas>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase=" 'doughnut' ">
+      <div width="600 " height="800 ">
+        <div style="display: block ">
+          <canvas baseChart [data]="doughnutChartData " [labels]="doughnutChartLabels " [chartType]="doughnutChartType "></canvas>
+        </div>
+      </div>
+    </ion-list>
+  </div> -->
 </ion-content>
