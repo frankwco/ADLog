@@ -18,10 +18,13 @@ import { ProdutividadePage } from '../pages/produtividade/produtividade';
 import { TempoPage } from '../pages/tempo/tempo';
 import { OutrosPage } from '../pages/outros/outros';
 import { LoginPage } from '../pages/login/login';
+import { OcorrenciasPage } from '../pages/ocorrencias/ocorrencias';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { IonicStorageModule } from '@ionic/storage';
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -37,13 +40,15 @@ import { ChartsModule } from 'ng2-charts';
     ProdutividadePage,
     TempoPage,
     OutrosPage,
-    LoginPage
+    LoginPage,
+    OcorrenciasPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    ChartsModule
+    ChartsModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +62,8 @@ import { ChartsModule } from 'ng2-charts';
     ProdutividadePage,
     TempoPage,
     OutrosPage,
-    LoginPage
+    LoginPage,
+    OcorrenciasPage
   ],
   providers: [
     StatusBar,

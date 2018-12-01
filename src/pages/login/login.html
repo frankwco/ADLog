@@ -18,13 +18,18 @@
   <ion-list>
 
     <ion-item>
-      <ion-label>Usuário</ion-label>
+      <ion-label floating>Usuário</ion-label>
       <ion-input type="text" [(ngModel)]="usuario"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Senha</ion-label>
+      <ion-label floating>Senha</ion-label>
       <ion-input type="password" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Salvar Senha</ion-label>
+      <ion-checkbox color="dark" [(ngModel)]="salvarSenha" checked="false"></ion-checkbox>
     </ion-item>
 
   </ion-list>

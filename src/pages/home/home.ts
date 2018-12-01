@@ -6,6 +6,12 @@ import { QualidadePage } from '../qualidade/qualidade';
 import { ProdutividadePage } from '../produtividade/produtividade';
 import { TempoPage } from '../tempo/tempo';
 import { OutrosPage } from '../outros/outros';
+import { LoginPage } from '../login/login';
+
+
+import { OcorrenciasPage } from '../ocorrencias/ocorrencias';
+
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -44,13 +50,23 @@ export class HomePage {
   doughnutChartData: number[];
   doughnutChartType: string = 'doughnut';
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private storage: Storage) {
     this.calcbar();
+  }
+
+  sair() {
+    this.storage.remove('salvarSenha');
+    this.navCtrl.setRoot(LoginPage);
   }
 
   chamarCusto() {
     this.navCtrl.push(CustoPage);
   }
+
+  chamarOcorrencias() {
+    this.navCtrl.push(OcorrenciasPage);
+  }
+
   chamarProdutividade() {
     this.navCtrl.push(ProdutividadePage);
   }

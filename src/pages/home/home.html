@@ -1,18 +1,26 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="sair()">
+       <ion-icon name="exit"></ion-icon>
+     </button>
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <h1>Avaliação de Desempenho</h1><br/>
-  <button ion-button full round color="bgorange" (click)="chamarCusto()">Custo</button><br/>
-  <button ion-button full round color="bgblue" (click)="chamarProdutividade()">Produtividade</button><br/>
-  <button ion-button full round color="bggreen" (click)="chamarQualidade()">Qualidade</button> <br/>
+  <button ion-button full round color="bggreen" (click)="chamarCusto()">Lançamento de Informações</button><br/>
+  <button ion-button full round color="bgorange" (click)="chamarOcorrencias()">Registro de Ocorrências</button><br/>
+  <button ion-button full round color="bgblue" (click)="chamarProdutividade()">Avaliar Desempenho</button><br/>
+  <!-- <button ion-button full round color="bggreen" (click)="chamarQualidade()">Qualidade</button> <br/>
   <button ion-button full round color="bgred" (click)="chamarTempo()">Tempo</button> <br/>
-  <button ion-button full round color="bgyellow" (click)="chamarOutros()">Outros</button> <br/>
+  <button ion-button full round color="bgyellow" (click)="chamarOutros()">Outros</button> <br/> -->
+
   <!-- <div style="width: 100%;">
     <canvas baseChart width="100%" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [colors]="barChartColors" [chartType]="barChartType"></canvas>
   </div>

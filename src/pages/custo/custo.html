@@ -17,14 +17,10 @@
 
   <ion-list>
     <ion-item>
-      <ion-label>Data Inicial</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="event.dataInicial"></ion-datetime>
+      <ion-label>Data</ion-label>
+      <ion-datetime displayFormat="MM/YYYY" [(ngModel)]="event.dataInicial"></ion-datetime>
     </ion-item>
 
-    <ion-item>
-      <ion-label>Data Final</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="event.dataFinal"></ion-datetime>
-    </ion-item>
     <button ion-button full round color="primary" (click)="buscarProcessos()">Selecionar Processos</button>
     <button ion-button full round color="primary" (click)="consultarDesempenho()">Consultar Desempenho</button>
   </ion-list>

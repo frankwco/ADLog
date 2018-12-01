@@ -18,7 +18,7 @@ import { Http } from '@angular/http';
   templateUrl: 'custo.html',
 })
 export class CustoPage {
-  urlBase = "http://192.168.0.13:8080/avaliacaodesempenho/rest/service/"
+  urlBase = "http://localhost:8080/avaliacaodesempenho/rest/service/"
   processos;
   processosSelecionados;
 
