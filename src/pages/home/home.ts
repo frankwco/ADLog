@@ -8,8 +8,14 @@ import { TempoPage } from '../tempo/tempo';
 import { OutrosPage } from '../outros/outros';
 import { LoginPage } from '../login/login';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/retry';
+import { Http } from '@angular/http';
+
 
 import { OcorrenciasPage } from '../ocorrencias/ocorrencias';
+import { LancamentosPage } from '../lancamentos/lancamentos';
+import { AlertController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -50,8 +56,101 @@ export class HomePage {
   doughnutChartData: number[];
   doughnutChartType: string = 'doughnut';
 
-  constructor(public navCtrl: NavController, private storage: Storage) {
+  quantidadeRegistros = 0;
+  urlBase = LoginPage.urlBase;
+
+  constructor(public navCtrl: NavController, private storage: Storage, public http: Http, public alertCtrl: AlertController) {
     this.calcbar();
+  }
+
+  ionViewWillEnter() {
+    this.quantidadeRegistros = 0;
+    this.storage.get('ocorrencias').then((val) => {
+      let ocorrencias = [];
+      ocorrencias = val;
+      if (ocorrencias != null) {
+        this.quantidadeRegistros = this.quantidadeRegistros + ocorrencias.length;
+      }
+    });
+
+    this.storage.get('itens').then((val) => {
+      let itens = [];
+      itens = val;
+      if (itens != null) {
+        this.quantidadeRegistros = this.quantidadeRegistros + itens.length;
+      }
+    });
+  }
+
+  desejaTransmitir() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Mensagem');
+    alert.setMessage('Deseja Realmente Transmitir??');
+    alert.addButton('Cancelar');
+    alert.addButton({
+      text: 'Transmitir',
+      handler: data => {
+        this.transmitir();
+      }
+    });
+    alert.present();
+  }
+
+  sucesso(mensagem) {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Mensagem');
+    alert.setMessage(mensagem);
+
+    alert.addButton({
+      text: 'Fechar',
+      handler: data => {
+        //console.log('Checkbox data:', this.indicadorSelecionado);
+      }
+    });
+    alert.present();
+  }
+
+  transmitir() {
+
+    this.storage.get('ocorrencias').then((val) => {
+      let ocorrencias = [];
+      ocorrencias = val;
+      if (ocorrencias != null) {
+        this.http.post(this.urlBase + "inserirOcorrencia", ocorrencias).retry(2).map(res => res.json()).subscribe(
+          data => {
+            console.log(data);
+            this.storage.remove('ocorrencias');
+            this.ionViewWillEnter();
+            this.sucesso("Ocorrências transmitidas com sucesso!!")
+
+
+          }, error => {
+            //alert(error);
+            console.log(error);
+            this.sucesso("Erro na transmissão dos dados!!");
+          });
+
+      }
+    });
+
+    this.storage.get('itens').then((val) => {
+      let itens = [];
+      itens = val;
+      if (itens != null) {
+        this.http.post(this.urlBase + "inserirLancamento", itens).retry(2).map(res => res.json()).subscribe(
+          data => {
+            console.log(data);
+            this.storage.remove('itens');
+            this.ionViewWillEnter();
+            this.sucesso("Lançamentos transmitidos com sucesso!!")
+          }, error => {
+            //alert(error);
+            console.log(error);
+            this.sucesso("Erro na transmissão dos dados!!");
+          });
+
+      }
+    });
   }
 
   sair() {
@@ -67,8 +166,8 @@ export class HomePage {
     this.navCtrl.push(OcorrenciasPage);
   }
 
-  chamarProdutividade() {
-    this.navCtrl.push(ProdutividadePage);
+  chamarLancamentos() {
+    this.navCtrl.push(LancamentosPage);
   }
   chamarQualidade() {
     this.navCtrl.push(QualidadePage);

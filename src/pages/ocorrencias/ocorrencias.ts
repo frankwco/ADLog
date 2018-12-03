@@ -3,12 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-/**
- * Generated class for the OcorrenciasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -22,14 +17,95 @@ export class OcorrenciasPage {
   indicadores;
   indicadorSelecionado;
   atividadeSelecionada;
+  ocorrenciasCadastradas;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public alertCtrl: AlertController) {
     this.atividades = [];
     this.indicadores = [];
+    this.ocorrenciasCadastradas = [];
+    this.atividadeSelecionada = {};
+    this.indicadorSelecionado = {};
+    this.ocorrencia = {};
+    this.ocorrencia.indicadorRelacionado = {};
+    this.ocorrencia.atividade = {};
+
+    this.storage.get('ocorrencias').then((val) => {
+      if (val != null) {
+        this.ocorrenciasCadastradas = val;
+      }
+    });
+
   }
 
   salvarOcorrencia() {
+    let ocorrencias = [];
+    this.storage.get('ocorrencias').then((val) => {
+      ocorrencias = val;
+      if (val == null) {
+        ocorrencias = [];
+      }
+      this.ocorrencia.idTemporario = (ocorrencias.length + 1) + "" + new Date();
+      ocorrencias.push(this.ocorrencia);
+      this.storage.set('ocorrencias', ocorrencias);
+      this.ocorrencia = {};
+      this.ocorrencia.indicadorRelacionado = {};
+      this.ocorrencia.atividade = {};
+      this.sucesso();
+    });
 
+  }
+
+  removerOcorrencia(idTemporario) {
+    console.log("ID " + idTemporario);
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Mensagem');
+    alert.setMessage("Deseja Excluir a Ocorrência??");
+    alert.addButton({
+      text: 'Cancelar'
+    });
+    alert.addButton({
+      text: 'Excluir',
+      handler: data => {
+
+
+        this.storage.get('ocorrencias').then((val) => {
+          let ocorrencias = [];
+          let ocorrenciasCadastradas = [];
+          ocorrenciasCadastradas = val;
+          if (val == null) {
+            ocorrenciasCadastradas = [];
+          }
+          for (let x = 0; x < ocorrenciasCadastradas.length; x++) {
+            if (ocorrenciasCadastradas[x].idTemporario != idTemporario) {
+              ocorrencias.push(ocorrenciasCadastradas[x]);
+            }
+          }
+          this.storage.set('ocorrencias', ocorrencias);
+          this.ocorrencia = {};
+          this.ocorrencia.indicadorRelacionado = {};
+          this.ocorrencia.atividade = {};
+          this.sucesso();
+        });
+
+      }
+    });
+    alert.present();
+  }
+
+  sucesso() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Feito');
+    alert.setMessage("Operação realizada com sucesso!!");
+
+    alert.addButton({
+      text: 'Fechar',
+      handler: data => {
+        this.navCtrl.pop();
+        //console.log('Checkbox data:', this.indicadorSelecionado);
+
+      }
+    });
+    alert.present();
   }
 
   selecionarIndicador() {
@@ -37,11 +113,10 @@ export class OcorrenciasPage {
     alert.setTitle('Selecionar Indicador');
 
     for (let x = 0; x < this.indicadores.length; x++) {
-      console.log("AQui " + x)
       alert.addInput({
         type: 'radio',
         label: this.indicadores[x].descricao,
-        value: this.indicadores[x].id,
+        value: this.indicadores[x],
         checked: false
       });
     }
@@ -49,8 +124,10 @@ export class OcorrenciasPage {
     alert.addButton({
       text: 'Selecionar',
       handler: data => {
-        this.indicadorSelecionado = data;
-        console.log('Checkbox data:', this.indicadorSelecionado);
+        if (data != null) {
+          this.ocorrencia.indicadorRelacionado = data
+        }
+        //console.log('Checkbox data:', this.indicadorSelecionado);
 
       }
     });
@@ -62,11 +139,10 @@ export class OcorrenciasPage {
     alert.setTitle('Selecionar Atividade');
 
     for (let x = 0; x < this.atividades.length; x++) {
-      console.log("AQui " + x)
       alert.addInput({
         type: 'radio',
         label: this.atividades[x].descricao,
-        value: this.atividades[x].id,
+        value: this.atividades[x],
         checked: false
       });
     }
@@ -74,8 +150,10 @@ export class OcorrenciasPage {
     alert.addButton({
       text: 'Selecionar',
       handler: data => {
-        this.atividadeSelecionada = data;
-        console.log('Checkbox data:', this.atividadeSelecionada);
+        if (data != null) {
+          this.ocorrencia.atividade = data;
+          console.log('Checkbox data:', this.atividadeSelecionada);
+        }
 
       }
     });

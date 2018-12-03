@@ -14,9 +14,10 @@
 
 <ion-content>
   <h1>Avaliação de Desempenho</h1><br/>
-  <button ion-button full round color="bggreen" (click)="chamarCusto()">Lançamento de Informações</button><br/>
+  <button ion-button full round color="bggreen" (click)="chamarLancamentos()">Lançamento de Informações</button><br/>
   <button ion-button full round color="bgorange" (click)="chamarOcorrencias()">Registro de Ocorrências</button><br/>
-  <button ion-button full round color="bgblue" (click)="chamarProdutividade()">Avaliar Desempenho</button><br/>
+  <button ion-button full round color="bgblue" (click)="chamarCusto()">Avaliar Desempenho</button><br/>
+  <button ion-button full round (click)="desejaTransmitir()">Transmitir - {{quantidadeRegistros}} Disponíveis</button><br/>
   <!-- <button ion-button full round color="bggreen" (click)="chamarQualidade()">Qualidade</button> <br/>
   <button ion-button full round color="bgred" (click)="chamarTempo()">Tempo</button> <br/>
   <button ion-button full round color="bgyellow" (click)="chamarOutros()">Outros</button> <br/> -->

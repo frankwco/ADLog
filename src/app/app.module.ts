@@ -19,6 +19,7 @@ import { TempoPage } from '../pages/tempo/tempo';
 import { OutrosPage } from '../pages/outros/outros';
 import { LoginPage } from '../pages/login/login';
 import { OcorrenciasPage } from '../pages/ocorrencias/ocorrencias';
+import { LancamentosPage } from '../pages/lancamentos/lancamentos';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,7 +42,8 @@ import { ChartsModule } from 'ng2-charts';
     TempoPage,
     OutrosPage,
     LoginPage,
-    OcorrenciasPage
+    OcorrenciasPage,
+    LancamentosPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { ChartsModule } from 'ng2-charts';
     TempoPage,
     OutrosPage,
     LoginPage,
-    OcorrenciasPage
+    OcorrenciasPage,
+    LancamentosPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,53 @@
+<!--
+  Generated template for the LancamentosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lançamento de Informações</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+
+    <button ion-button full round color="primary" (click)="selecionarAtividade()">Selecionar Atividade</button>
+    <p>{{item.atividade.descricao}}</p>
+    <button ion-button full round color="primary" (click)="selecionarVariavel()">Selecionar Variável</button>
+    <p>{{item.grupoLancamento.descricao}}</p>
+
+    <ion-item>
+      <ion-label floating>Valor</ion-label>
+      <ion-input type="number" [(ngModel)]="item.valor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Data</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="item.dataLancamento"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Observação</ion-label>
+      <ion-textarea type="text" [(ngModel)]="item.observacao"></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <button ion-button full round color="primary" (click)="salvarLancamento()">Inserir Lançamento</button>
+
+  <hr/>
+  <hr/>
+
+  <ion-list>
+    <ion-item *ngFor="let item of lancamentosCadastrados" (click)="removerLancamento(item.idTemporario)">
+      <h2>{{item.grupoLancamento.descricao}}</h2>
+      <h2>{{item.valor}}</h2>
+      <h3>{{item.dataLancamento | date:'dd/MM/yyyy HH:mm:ss'}}</h3>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
